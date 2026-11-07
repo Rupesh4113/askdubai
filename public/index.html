@@ -20,7 +20,7 @@
       </div>
 
       <div class="header-controls">
-        <button class="btn-demo" onclick="loadDemoScenario()" data-i18n="btn_demo">⚡ Load AC Demo (AED 2,500)</button>
+        <button class="btn-secondary" onclick="resetPracticalSession()" style="font-weight: 600; padding: 0.55rem 1rem;">🔄 Reset / New Case</button>
         <select id="langSelector" class="lang-selector">
           <option value="en">English (English)</option>
           <option value="ar">العربية (Arabic - RTL)</option>
@@ -52,7 +52,7 @@
         <div class="card">
           <h3>💬 Interactive Problem Resolution</h3>
           <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;" data-i18n="chat_intro">
-            Welcome to CivicResolve AI. Describe your consumer issue below or click 'Load AC Demo' above to run the 7-agent resolution pipeline.
+            Welcome to CivicResolve AI. Describe your consumer issue below or attach an invoice/receipt to run the 7-agent resolution pipeline.
           </p>
           <div id="chatWindow" class="chat-window">
             <div class="chat-bubble chat-assistant">
@@ -89,24 +89,25 @@
       <div class="card">
         <h3>📄 Tax Invoice & Evidence Intelligence</h3>
         <p style="margin-bottom: 1rem; color: var(--text-muted);">
-          Extracts merchant TRN, invoice numbers, purchase amounts, and warranty terms from PDFs and receipts.
+          Upload your purchase document. Our open-source Document Intelligence Agent automatically extracts TRN, merchant, dates, amounts in AED, and warranty terms.
         </p>
         <div class="grid-2">
           <div style="border: 2px dashed var(--border-color); padding: 2rem; border-radius: 8px; text-align: center;">
-            <p><strong>Upload Tax Invoice, Warranty Card, or Photos</strong></p>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Supported formats: PDF, PNG, JPG, JPEG (Max 15MB)</p>
-            <input type="file" style="margin-top: 1rem;" onchange="alert('Document uploaded! Running Document Intelligence Agent...')">
+            <p><strong>Upload Tax Invoice, Warranty Card, or Receipt</strong></p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Supported formats: PDF, PNG, JPG, JPEG, TXT (Max 15MB)</p>
+            <input type="file" id="fileUploadInput" accept=".pdf,.png,.jpg,.jpeg,.txt" style="margin-top: 1rem;" onchange="handlePracticalFileUpload(this)">
+            <div id="uploadStatusText" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--dubai-teal);"></div>
           </div>
 
           <div style="background: #F1F5F9; padding: 1.2rem; border-radius: 8px;">
             <h4>Extracted Transaction Fields</h4>
-            <p><strong>Merchant:</strong> <span id="docMerchant">Sharaf DG LLC Dubai</span></p>
-            <p><strong>Invoice No:</strong> <span id="docInvoice">INV-DXB-883921</span></p>
-            <p><strong>Amount:</strong> <span id="docAmount">AED 2,500.00</span></p>
-            <p><strong>Date:</strong> <span id="docDate">2026-01-24</span></p>
-            <p><strong>Warranty:</strong> <span id="docWarranty">2 Years Full / 5 Years Compressor</span></p>
-            <p><strong>TRN:</strong> <span id="docTRN">100234567890003</span></p>
-            <p><strong>Extraction Confidence:</strong> <span class="badge badge-verified">96% Confirmed</span></p>
+            <p><strong>Merchant:</strong> <span id="docMerchant">No document uploaded yet</span></p>
+            <p><strong>Invoice No:</strong> <span id="docInvoice">No document uploaded yet</span></p>
+            <p><strong>Amount:</strong> <span id="docAmount">No document uploaded yet</span></p>
+            <p><strong>Date:</strong> <span id="docDate">No document uploaded yet</span></p>
+            <p><strong>Warranty:</strong> <span id="docWarranty">No document uploaded yet</span></p>
+            <p><strong>TRN:</strong> <span id="docTRN">No document uploaded yet</span></p>
+            <p><strong>Extraction Confidence:</strong> <span class="badge" id="docConfidenceBadge" style="background:#E2E8F0; color:#475569;">Awaiting file</span></p>
           </div>
         </div>
       </div>
@@ -142,31 +143,12 @@
         <div class="grid-2">
           <div>
             <h4>🏛️ Official Government Complaint Dossier</h4>
-            <textarea id="officialDossier" class="complaint-editor" readonly>OFFICIAL CONSUMER COMPLAINT FILING DOSSIER
-Addressed To: Dubai Department of Economy and Tourism (DET - CCCP)
-Filing Type: First-Party Consumer Rights Mediation Request
-
-1. COMPLAINANT / RESPONDENT INFORMATION
-   - Respondent: Sharaf DG LLC Dubai
-   - Reference: INV-DXB-883921
-   - Amount: AED 2,500.00
-   - Date: 2026-01-24
-
-2. STATEMENT OF FACTS
-   Consumer purchased an air conditioner on 2026-01-24. Unit ceased cooling completely within two weeks and leaked refrigerant. Seller has refused statutory warranty remedy.
-
-3. STATUTORY GROUNDING
-   UAE Federal Law No. 15 of 2020 on Consumer Protection (Articles 10 & 12). Mandatory replacement or refund for defective appliances.</textarea>
+            <textarea id="officialDossier" class="complaint-editor" placeholder="The Official Consumer Complaint Dossier will be drafted here after analyzing your problem and documents..."></textarea>
           </div>
 
           <div>
             <h4>✉️ Merchant Formal Demand Notice</h4>
-            <textarea id="merchantLetter" class="complaint-editor" readonly>FORMAL NOTICE OF CONSUMER DISPUTE
-To: Customer Service Management, Sharaf DG LLC Dubai
-Reference: Invoice #INV-DXB-883921 (AED 2,500.00)
-
-Dear Team,
-Under UAE Federal Law No. 15 of 2020 on Consumer Protection, you are legally required to replace or refund defective household appliances within statutory periods. We demand inspection and replacement within 3 business days, failing which this dossier will be filed with Dubai Consumer Rights (DET).</textarea>
+            <textarea id="merchantLetter" class="complaint-editor" placeholder="The Formal Merchant Demand Notice under UAE Federal Law No. 15 of 2020 will be prepared here..."></textarea>
           </div>
         </div>
 

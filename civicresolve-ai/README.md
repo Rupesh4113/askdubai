@@ -104,15 +104,15 @@ python civicresolve-ai/tests/evaluate_benchmark.py
 
 ---
 
-## ❄️ Demonstration Scenario: Dubai Air Conditioner Dispute
+## 🚀 Practical End-to-End Problem Resolution Flow
 
-1. Open the CivicResolve AI sidebar and click **"Load AC Demo (AED 2,500)"**.
-2. **Agent 1 (Supervisor)** ingests the problem: *Consumer purchased an air conditioner for AED 2,500 from Sharaf DG; stopped cooling after 2 weeks; seller refuses replacement.*
-3. **Agent 2 (Classification)** identifies `defective_product`, merchant `Sharaf DG`, and amount `AED 2,500.00`.
-4. **Agent 3 (Document Intelligence)** processes the tax invoice, extracts TRN `100234567890003`, invoice `INV-DXB-883921`, and 2-year warranty terms.
-5. **Agent 4 (Rights Research)** retrieves Article 10 of UAE Federal Law No. 15 of 2020 and Dubai DET Consumer Rights manuals via FAISS.
-6. **Agent 5 (Resolution Planning)** outlines a 4-step actionable roadmap with timelines and alternative bank chargeback options.
+1. Enter your real consumer dispute in the text box, speak via the live **Voice Input** button, or upload an invoice/receipt under **Document Intelligence**.
+2. **Agent 1 (Supervisor)** coordinates the 7-agent pipeline across classification, document extraction, legal research, planning, action drafting, and quality verification.
+3. **Agent 2 (Classification)** extracts the complaint category (e.g. `defective_product`, `warranty_dispute`, `refund_dispute`), commercial merchant, and disputed amount.
+4. **Agent 3 (Document Intelligence)** processes the uploaded PDF/image/text invoice via PyMuPDF/Tesseract, extracting TRN, invoice numbers, transaction dates, and warranty clauses.
+5. **Agent 4 (Rights Research)** retrieves official statutory provisions from UAE Federal Law No. 15 of 2020 and Dubai DET Consumer Protection regulations via FAISS.
+6. **Agent 5 (Resolution Planning)** constructs a customized 4-step actionable roadmap with timelines and alternative bank chargeback remedies.
 7. **Agent 6 (Action)** drafts a formal **Merchant Demand Notice** and **Official Dubai DED Filing Dossier**.
-8. **Agent 7 (Verification)** audits completeness and locks submission at the **Human Approval Gate**.
-9. The consumer reviews, edits, and checks the approval checkbox.
-10. The user is guided to the official Dubai Consumer Rights portal and AskDubai civic assistant.
+8. **Agent 7 (Verification)** audits completeness, verifies jurisdictional competence, and locks submission behind the **Human Approval Gate**.
+9. The consumer reviews, modifies if necessary, and checks the approval checkbox.
+10. The user is provided direct links to the official Dubai Consumer Rights portal and AskDubai civic assistant.

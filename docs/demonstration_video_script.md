@@ -32,7 +32,7 @@
 
 ### [1:00 - 1:45] PART 3: The Live Air Conditioner Dispute Demonstration
 **Screen**: Presenter navigates to the **AI Assistant** tab.  
-**Action**: Clicks **"⚡ Load AC Demo (AED 2,500)"** or speaks via the voice input button.  
+**Action**: Inputs the real problem statement or speaks via the live voice input button.  
 *Text appears: 'I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. I contacted the seller multiple times, but they have refused to repair or replace it.'*  
 **Action**: Simultaneously, the tax invoice PDF `Invoice_SharafDG_AC.pdf` is uploaded.  
 **Presenter (Voiceover)**:  

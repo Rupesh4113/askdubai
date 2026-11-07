@@ -185,51 +185,26 @@ with st.sidebar:
         
     st.caption("Sovereign UAE Consumer Protection")
     
-    # Sample Demo One-Click Injector
+    # Session Management
     st.markdown("---")
-    st.markdown("##### 🚀 **Demonstration Scenario**")
-    if st.button("Load AC Demo (AED 2,500)", use_container_width=True):
+    if st.button("🔄 Start New Case / Reset", use_container_width=True):
         st.session_state.complaint_data = {
-            "id": "CASE-DXB-2026-0042",
-            "category": "defective_product",
-            "description": "I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. I contacted the seller multiple times, but they have refused to repair or replace it.",
-            "merchant": "Sharaf DG",
-            "amount": 2500.0,
+            "id": f"CASE-DXB-{datetime.now().strftime('%Y%m%d%H%M')}",
+            "category": "other",
+            "description": "",
+            "merchant": "",
+            "amount": 0.0,
             "currency": "AED",
-            "purchase_date": "2026-01-24",
-            "requested_resolution": "Immediate replacement of defective unit or full refund",
-            "status": "analyzing"
+            "purchase_date": "",
+            "requested_resolution": "",
+            "status": "draft"
         }
-        
-        # Inject sample document
-        sample_doc_text = (
-            "TAX INVOICE - Sharaf DG LLC Dubai\n"
-            "TRN: 100234567890003\n"
-            "Invoice No: INV-DXB-883921\n"
-            "Date: 2026-01-24\n"
-            "Item: SuperCool Split Air Conditioner 2.0 Ton Inverter\n"
-            "Total Amount: AED 2,500.00\n"
-            "Warranty: 2 Years Full Warranty / 5 Years Compressor\n"
-        )
-        st.session_state.uploaded_docs_data = [{
-            "filename": "Invoice_SharafDG_AC.pdf",
-            "file_bytes": sample_doc_text.encode("utf-8"),
-            "text": sample_doc_text
-        }]
-        
-        # Run pipeline
-        supervisor = SupervisorAgent()
-        res = supervisor.run_full_pipeline(
-            complaint_description=st.session_state.complaint_data["description"],
-            uploaded_files=[{"filename": "Invoice_SharafDG_AC.pdf", "bytes": sample_doc_text.encode("utf-8")}]
-        )
-        st.session_state.pipeline_result = res
-        st.session_state.case_events.append({
-            "time": datetime.now().strftime("%Y-%m-%d %H:%M"),
-            "type": "Demo Scenario Loaded",
-            "details": "Air Conditioner (AED 2,500) dispute loaded and analyzed by 7 agents."
-        })
-        st.success("Dubai AC Demo Scenario loaded and analyzed!")
+        st.session_state.pipeline_result = None
+        st.session_state.chat_messages = []
+        st.session_state.uploaded_docs_data = []
+        st.session_state.approval_granted = False
+        st.session_state.submission_ref = ""
+        st.success("New case session initialized.")
         st.rerun()
 
 
@@ -373,12 +348,14 @@ elif menu_choice == t("nav_assistant", current_lang):
     # Chat Input
     user_input = st.chat_input(t("chat_placeholder", current_lang))
     
-    # Audio / Voice Placeholder
-    col_v1, col_v2 = st.columns([3, 1])
-    with col_v2:
-        if st.button("🎙️ " + t("voice_input", current_lang), use_container_width=True):
-            st.info(t("voice_placeholder", current_lang))
-            user_input = "I bought an air conditioner for AED 2,500 from Sharaf DG two weeks ago and it completely stopped cooling. The seller refuses to replace it."
+    # Audio / Voice Input
+    with st.expander("🎙️ Practical Voice Input (Microphone Recording)", expanded=False):
+        audio_clip = st.audio_input("Record voice complaint")
+        if audio_clip is not None:
+            st.audio(audio_clip)
+            voice_txt = st.text_input("Spoken grievance notes / details", placeholder="Describe your issue or confirm spoken statement...", key="voice_summary_input")
+            if st.button("Submit Voice Complaint", key="submit_voice_complaint_btn"):
+                user_input = voice_txt.strip() if voice_txt else "Audio complaint recorded via microphone. Requesting review."
 
     if user_input:
         # Append user message
@@ -482,7 +459,7 @@ elif menu_choice == t("nav_documents", current_lang):
                     for note in doc["validation_notes"]:
                         st.caption(f"ℹ️ {note}")
     else:
-        st.info("No documents uploaded yet. Upload your tax invoice or warranty card above, or click 'Load AC Demo' on the sidebar.")
+        st.info("No documents uploaded yet. Upload your tax invoice, warranty card, or purchase receipt above.")
 
 
 # ==========================================
@@ -492,7 +469,7 @@ elif menu_choice == t("nav_complaint", current_lang):
     st.title("🔍 " + t("nav_complaint", current_lang))
     
     if not st.session_state.pipeline_result:
-        st.warning("Please describe your complaint in the AI Assistant or load the demonstration scenario first.")
+        st.warning("Please describe your consumer issue in the AI Assistant or upload supporting documents to begin.")
     else:
         comp = st.session_state.pipeline_result["complaint"]
         rights = st.session_state.pipeline_result["rights"]
@@ -527,7 +504,7 @@ elif menu_choice == t("nav_plan", current_lang):
     st.title("📋 " + t("nav_plan", current_lang))
     
     if not st.session_state.pipeline_result:
-        st.warning("No active complaint analysis. Load the demo or submit an issue in the AI Assistant.")
+        st.warning("No active complaint analysis. Describe your issue in the AI Assistant to generate a resolution roadmap.")
     else:
         plan = st.session_state.pipeline_result["resolution_plan"]
         st.markdown(f"#### Summary of Dispute\n{plan['what_happened']}")
