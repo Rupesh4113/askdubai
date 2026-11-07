@@ -1,6 +1,6 @@
 """
 CivicResolve AI - Streamlit Web Application
-Dubai AI Agents Championship - Societal AI Agent
+UAE Consumer Protection - Societal AI Agent
 Multilingual, Supervisor-Led Multi-Agent Consumer Dispute Resolution Assistant.
 """
 import os
@@ -142,7 +142,7 @@ current_lang = st.session_state.lang
 # Sidebar Navigation & Language Selector
 with st.sidebar:
     st.markdown("### ⚖️ **CivicResolve AI**")
-    st.caption("Dubai AI Agents Championship")
+    st.caption("Consumer Protection Assistant")
     
     # Language Selector
     lang_options = {code: f"{data['native']} ({data['name']})" for code, data in SUPPORTED_LANGUAGES.items()}

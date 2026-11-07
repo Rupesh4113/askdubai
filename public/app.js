@@ -7,7 +7,7 @@ const I18N = {
   en: {
     app_title: "CivicResolve AI",
     tagline: "Your Problem. Your Rights. Your Resolution.",
-    badge: "Dubai AI Agents Championship",
+    badge: "UAE Consumer Protection",
     btn_demo: "⚡ Load AC Demo (AED 2,500)",
     tab_assistant: "AI Assistant",
     tab_documents: "Document Intelligence",
@@ -28,7 +28,7 @@ const I18N = {
   ar: {
     app_title: "سيفيك ريزولف (CivicResolve AI)",
     tagline: "مشكلتك. حقوقك. حلك العادل.",
-    badge: "بطولة دبي للوكلاء الأذكياء",
+    badge: "حماية المستهلك - الإمارات",
     btn_demo: "⚡ تشغيل تجربة مكيف الهواء (2,500 درهم)",
     tab_assistant: "المساعد الذكي",
     tab_documents: "تحليل المستندات",
@@ -49,7 +49,7 @@ const I18N = {
   ur: {
     app_title: "سیوک ریزولو اے آئی (CivicResolve AI)",
     tagline: "آپ کا مسئلہ۔ آپ کے حقوق۔ آپ کا حل۔",
-    badge: "دبئی اے آئی ایجنٹس چیمپئن شپ",
+    badge: "صارفین کا تحفظ - امارات",
     btn_demo: "⚡ اے سی کیس ڈیمو (2,500 درہم)",
     tab_assistant: "اے آئی معاون",
     tab_documents: "دستاویزات کا تجزیہ",
@@ -70,7 +70,7 @@ const I18N = {
   hi: {
     app_title: "सिविकरिज़ॉल्व एआई (CivicResolve AI)",
     tagline: "आपकी समस्या। आपके अधिकार। आपका समाधान।",
-    badge: "दुबई एआई एजेंट्स चैम्पियनशिप",
+    badge: "उपभोक्ता संरक्षण - यूएई",
     btn_demo: "⚡ एसी डेमो लोड करें (2,500 AED)",
     tab_assistant: "एआई सहायक",
     tab_documents: "दस्तावेज़ विश्लेषण",
@@ -91,7 +91,7 @@ const I18N = {
   ml: {
     app_title: "സിവിക് റിസോൾവ് എഐ (CivicResolve AI)",
     tagline: "നിങ്ങളുടെ പ്രശ്നം. നിങ്ങളുടെ അവകാശം. നിങ്ങളുടെ പരിഹാരം.",
-    badge: "ദുബായ് എഐ ഏജന്റ്സ് ചാമ്പ്യൻഷിപ്പ്",
+    badge: "ഉപഭോക്തൃ സംരക്ഷണം - യുഎഇ",
     btn_demo: "⚡ എസി ഡെമോ കാണുക (AED 2,500)",
     tab_assistant: "എഐ അസിസ്റ്റന്റ്",
     tab_documents: "രേഖകൾ",
@@ -112,7 +112,7 @@ const I18N = {
   fil: {
     app_title: "CivicResolve AI",
     tagline: "Problema Mo. Karapatan Mo. Resolusyon Mo.",
-    badge: "Dubai AI Agents Championship",
+    badge: "Proteksyon sa Konsyumer ng UAE",
     btn_demo: "⚡ I-load ang AC Demo (AED 2,500)",
     tab_assistant: "AI Assistant",
     tab_documents: "Dokumento",
