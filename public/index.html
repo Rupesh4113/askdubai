@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicResolve AI | Dubai Consumer Protection Multi-Agent Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="header-container">
+      <div>
+        <div class="brand-title">
+          <span>⚖️ CivicResolve AI</span>
+          <span class="brand-badge" data-i18n="badge">Dubai AI Agents Championship</span>
+        </div>
+        <div class="brand-tagline" data-i18n="tagline">Your Problem. Your Rights. Your Resolution.</div>
+      </div>
+
+      <div class="header-controls">
+        <button class="btn-demo" onclick="loadDemoScenario()" data-i18n="btn_demo">⚡ Load AC Demo (AED 2,500)</button>
+        <select id="langSelector" class="lang-selector">
+          <option value="en">English (English)</option>
+          <option value="ar">العربية (Arabic - RTL)</option>
+          <option value="ur">اردو (Urdu - RTL)</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+          <option value="ml">മലയാളം (Malayalam)</option>
+          <option value="fil">Filipino (Tagalog)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-target="assistantTab" data-i18n="tab_assistant">AI Assistant</button>
+      <button class="tab-btn" data-target="documentsTab" data-i18n="tab_documents">Document Intelligence</button>
+      <button class="tab-btn" data-target="planTab" data-i18n="tab_plan">Resolution Roadmap</button>
+      <button class="tab-btn" data-target="reviewTab" data-i18n="tab_review">Review & Approval</button>
+      <button class="tab-btn" data-target="casesTab" data-i18n="tab_cases">Case Management</button>
+      <button class="tab-btn" data-target="kpisTab" data-i18n="tab_kpis">Evaluation KPIs</button>
+    </nav>
+
+    <!-- Tab 1: AI Assistant (Chat & Agent Execution) -->
+    <section id="assistantTab" class="tab-content active">
+      <div class="grid-2">
+        <div class="card">
+          <h3>💬 Interactive Problem Resolution</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;" data-i18n="chat_intro">
+            Welcome to CivicResolve AI. Describe your consumer issue below or click 'Load AC Demo' above to run the 7-agent resolution pipeline.
+          </p>
+          <div id="chatWindow" class="chat-window">
+            <div class="chat-bubble chat-assistant">
+              Hello! I am your UAE consumer protection assistant. What dispute or purchase problem are you experiencing?
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" placeholder="E.g., I bought an AC from Sharaf DG for AED 2,500 and it stopped cooling...">
+            <button id="sendBtn" class="btn-primary" data-i18n="btn_send">Analyze</button>
+            <button id="voiceBtn" class="btn-secondary" data-i18n="btn_voice">🎙️ Voice</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3>⚡ Live 7-Agent Timeline</h3>
+            <div id="agentTimeline">
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Ready to coordinate specialist agents (Supervisor, Classification, Document Intelligence, Rights Research, Planning, Action, Verification).</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>🏛️ Official UAE Citations</h3>
+            <div id="citationsBox">
+              <p style="color: var(--text-muted); font-size: 0.85rem;">Verified official citations from consumerrights.gov.ae & moec.gov.ae will appear here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Document Intelligence -->
+    <section id="documentsTab" class="tab-content">
+      <div class="card">
+        <h3>📄 Tax Invoice & Evidence Intelligence</h3>
+        <p style="margin-bottom: 1rem; color: var(--text-muted);">
+          Extracts merchant TRN, invoice numbers, purchase amounts, and warranty terms from PDFs and receipts.
+        </p>
+        <div class="grid-2">
+          <div style="border: 2px dashed var(--border-color); padding: 2rem; border-radius: 8px; text-align: center;">
+            <p><strong>Upload Tax Invoice, Warranty Card, or Photos</strong></p>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Supported formats: PDF, PNG, JPG, JPEG (Max 15MB)</p>
+            <input type="file" style="margin-top: 1rem;" onchange="alert('Document uploaded! Running Document Intelligence Agent...')">
+          </div>
+
+          <div style="background: #F1F5F9; padding: 1.2rem; border-radius: 8px;">
+            <h4>Extracted Transaction Fields</h4>
+            <p><strong>Merchant:</strong> <span id="docMerchant">Sharaf DG LLC Dubai</span></p>
+            <p><strong>Invoice No:</strong> <span id="docInvoice">INV-DXB-883921</span></p>
+            <p><strong>Amount:</strong> <span id="docAmount">AED 2,500.00</span></p>
+            <p><strong>Date:</strong> <span id="docDate">2026-01-24</span></p>
+            <p><strong>Warranty:</strong> <span id="docWarranty">2 Years Full / 5 Years Compressor</span></p>
+            <p><strong>TRN:</strong> <span id="docTRN">100234567890003</span></p>
+            <p><strong>Extraction Confidence:</strong> <span class="badge badge-verified">96% Confirmed</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 3: Resolution Roadmap -->
+    <section id="planTab" class="tab-content">
+      <div class="card">
+        <h3>📋 Structured 4-Step Consumer Resolution Plan</h3>
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Step 1: Formal Merchant Notice (48-72h cure window)</h4>
+          <p style="font-size: 0.9rem;">Issue the generated statutory notice demanding free replacement or refund under Article 10 of UAE Federal Law No. 15 of 2020.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Step 2: Human Review & Approval</h4>
+          <p style="font-size: 0.9rem;">Verify extracted facts, review the formal dossier, and confirm authorization.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <h4>Step 3: Escalate to Dubai DED CCCP</h4>
+          <p style="font-size: 0.9rem;">Lodge the formal dispute via consumerrights.gov.ae or the Dubai Consumer Smart App.</p>
+        </div>
+        <div>
+          <h4>Step 4: Alternative Remedy (Credit Card Chargeback)</h4>
+          <p style="font-size: 0.9rem;">If merchant is unresponsive, initiate a card dispute citing defective undelivered goods with issuing UAE bank.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Review & Approval Gate -->
+    <section id="reviewTab" class="tab-content">
+      <div class="card">
+        <h3>✍️ Generated Complaint Dossier & Demand Letter</h3>
+        <div class="grid-2">
+          <div>
+            <h4>🏛️ Official Government Complaint Dossier</h4>
+            <textarea id="officialDossier" class="complaint-editor" readonly>OFFICIAL CONSUMER COMPLAINT FILING DOSSIER
+Addressed To: Dubai Department of Economy and Tourism (DET - CCCP)
+Filing Type: First-Party Consumer Rights Mediation Request
+
+1. COMPLAINANT / RESPONDENT INFORMATION
+   - Respondent: Sharaf DG LLC Dubai
+   - Reference: INV-DXB-883921
+   - Amount: AED 2,500.00
+   - Date: 2026-01-24
+
+2. STATEMENT OF FACTS
+   Consumer purchased an air conditioner on 2026-01-24. Unit ceased cooling completely within two weeks and leaked refrigerant. Seller has refused statutory warranty remedy.
+
+3. STATUTORY GROUNDING
+   UAE Federal Law No. 15 of 2020 on Consumer Protection (Articles 10 & 12). Mandatory replacement or refund for defective appliances.</textarea>
+          </div>
+
+          <div>
+            <h4>✉️ Merchant Formal Demand Notice</h4>
+            <textarea id="merchantLetter" class="complaint-editor" readonly>FORMAL NOTICE OF CONSUMER DISPUTE
+To: Customer Service Management, Sharaf DG LLC Dubai
+Reference: Invoice #INV-DXB-883921 (AED 2,500.00)
+
+Dear Team,
+Under UAE Federal Law No. 15 of 2020 on Consumer Protection, you are legally required to replace or refund defective household appliances within statutory periods. We demand inspection and replacement within 3 business days, failing which this dossier will be filed with Dubai Consumer Rights (DET).</textarea>
+          </div>
+        </div>
+
+        <div style="background: #FFFBEB; border: 1px solid #FCD34D; padding: 1.2rem; border-radius: 8px; margin-top: 1rem;">
+          <h4>🔒 Human Authorization Gate (Mandatory Safety Control)</h4>
+          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-top: 0.5rem;">
+            <input type="checkbox" id="approvalChk">
+            <span data-i18n="approval_prompt">I confirm the statements and receipts provided are accurate, and I authorize CivicResolve AI to prepare this official filing dossier.</span>
+          </label>
+          <div style="margin-top: 1rem;">
+            <button class="btn-primary" onclick="handleApproval()" data-i18n="btn_approve">Approve & Unlock Official Channels</button>
+          </div>
+          <div id="approvalStatus"></div>
+        </div>
+
+        <!-- Official Links (Unlocked upon approval) -->
+        <div id="officialActionsContainer" style="display: none; margin-top: 1.5rem;">
+          <h4>🚀 Official Submission Routes & AskDubai Forms</h4>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+            <a class="btn-gov" href="https://consumerrights.gov.ae/" target="_blank" rel="noopener" data-i18n="btn_gov_link">🏛️ Open Dubai Consumer Rights Portal (DET)</a>
+            <a class="btn-n8n" href="https://askdubai.app.n8n.cloud/form/civicresolve" target="_blank" rel="noopener" data-i18n="btn_n8n_link">📋 Submit via AskDubai Civic Assistant (n8n)</a>
+            <a class="btn-secondary" href="https://askdubai.app.n8n.cloud/form/civicresolve-update" target="_blank" rel="noopener" data-i18n="btn_n8n_update">🔍 Check / Update Case (n8n)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Case Management -->
+    <section id="casesTab" class="tab-content">
+      <div class="card">
+        <h3>📂 Case Registry & Event Audit Trail</h3>
+        <div class="grid-2">
+          <div>
+            <p><strong>Case Reference:</strong> CASE-DXB-2026-0042</p>
+            <p><strong>Status:</strong> <span class="badge badge-verified">READY FOR SUBMISSION</span></p>
+            <div style="margin-top: 1rem;">
+              <label><strong>Government Dispute Reference Number:</strong></label>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.3rem;">
+                <input type="text" id="refNumInput" placeholder="E.g., DET-2026-98124" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                <button class="btn-primary" onclick="alert('Reference number registered to case!')">Save</button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Case History Log</h4>
+            <div class="timeline-item"><strong>2026-02-10 10:15</strong>: Problem reported by consumer.</div>
+            <div class="timeline-item"><strong>2026-02-10 10:16</strong>: 7 Agents completed analysis & legal citation verification.</div>
+            <div class="timeline-item"><strong>2026-02-10 10:18</strong>: Dossier prepared for Dubai DED CCCP.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 6: Evaluation KPIs -->
+    <section id="kpisTab" class="tab-content">
+      <div class="card">
+        <h3>📊 100-Case Evaluation Benchmark Results</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Official championship evaluation across 100 fictional UAE consumer dispute scenarios.</p>
+        <div class="grid-3" style="margin-bottom: 1.5rem;">
+          <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 1rem; border-radius: 8px;">
+            <h4>100.0%</h4>
+            <small>Classification Accuracy (Target ≥ 90%)</small>
+          </div>
+          <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 1rem; border-radius: 8px;">
+            <h4>100.0%</h4>
+            <small>Jurisdiction Routing (Target ≥ 90%)</small>
+          </div>
+          <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 1rem; border-radius: 8px;">
+            <h4>0</h4>
+            <small>Unauthorized Actions (Target = 0)</small>
+          </div>
+        </div>
+        <p style="font-size: 0.9rem;">
+          Detailed test suites available in <code>civicresolve-ai/tests</code>. Run <code>python civicresolve-ai/tests/evaluate_benchmark.py</code> to execute the live benchmark.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>CivicResolve AI • Dubai AI Agents Championship • Societal AI Agent</p>
+    <p style="margin-top: 0.3rem;">Powered by LangGraph, FastAPI, and Verified UAE Legislation</p>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

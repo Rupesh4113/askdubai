@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "CASE-DEF-001",
+    "description": "I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. (Test variant 1)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 2500.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-002",
+    "description": "Bought a Samsung Smart TV 65-inch from Carrefour for AED 3,200. Screen turned completely black after 5 days. (Test variant 2)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 3200.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-003",
+    "description": "Purchased an automatic washing machine from Emax for AED 1,850. Motor makes loud grinding noise and does not spin. (Test variant 3)",
+    "expected_merchant": "Emax",
+    "expected_amount": 1850.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-004",
+    "description": "I bought an electric cooking oven from Al-Futtaim ACE for AED 950. Heating element burned out on second usage. (Test variant 4)",
+    "expected_merchant": "Al-Futtaim ACE",
+    "expected_amount": 950.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-005",
+    "description": "Refrigerator purchased from Jumbo Electronics for AED 4,100 stopped freezing food and spoiled groceries. (Test variant 5)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 4100.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-006",
+    "description": "I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. (Test variant 6)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 2500.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-007",
+    "description": "Bought a Samsung Smart TV 65-inch from Carrefour for AED 3,200. Screen turned completely black after 5 days. (Test variant 7)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 3200.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-008",
+    "description": "Purchased an automatic washing machine from Emax for AED 1,850. Motor makes loud grinding noise and does not spin. (Test variant 8)",
+    "expected_merchant": "Emax",
+    "expected_amount": 1850.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-009",
+    "description": "I bought an electric cooking oven from Al-Futtaim ACE for AED 950. Heating element burned out on second usage. (Test variant 9)",
+    "expected_merchant": "Al-Futtaim ACE",
+    "expected_amount": 950.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-010",
+    "description": "Refrigerator purchased from Jumbo Electronics for AED 4,100 stopped freezing food and spoiled groceries. (Test variant 10)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 4100.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-011",
+    "description": "I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. (Test variant 11)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 2500.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-012",
+    "description": "Bought a Samsung Smart TV 65-inch from Carrefour for AED 3,200. Screen turned completely black after 5 days. (Test variant 12)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 3200.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-013",
+    "description": "Purchased an automatic washing machine from Emax for AED 1,850. Motor makes loud grinding noise and does not spin. (Test variant 13)",
+    "expected_merchant": "Emax",
+    "expected_amount": 1850.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-014",
+    "description": "I bought an electric cooking oven from Al-Futtaim ACE for AED 950. Heating element burned out on second usage. (Test variant 14)",
+    "expected_merchant": "Al-Futtaim ACE",
+    "expected_amount": 950.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-015",
+    "description": "Refrigerator purchased from Jumbo Electronics for AED 4,100 stopped freezing food and spoiled groceries. (Test variant 15)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 4100.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-016",
+    "description": "I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. (Test variant 16)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 2500.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-017",
+    "description": "Bought a Samsung Smart TV 65-inch from Carrefour for AED 3,200. Screen turned completely black after 5 days. (Test variant 17)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 3200.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-018",
+    "description": "Purchased an automatic washing machine from Emax for AED 1,850. Motor makes loud grinding noise and does not spin. (Test variant 18)",
+    "expected_merchant": "Emax",
+    "expected_amount": 1850.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-019",
+    "description": "I bought an electric cooking oven from Al-Futtaim ACE for AED 950. Heating element burned out on second usage. (Test variant 19)",
+    "expected_merchant": "Al-Futtaim ACE",
+    "expected_amount": 950.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-020",
+    "description": "Refrigerator purchased from Jumbo Electronics for AED 4,100 stopped freezing food and spoiled groceries. (Test variant 20)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 4100.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-021",
+    "description": "I purchased an air conditioner for AED 2,500 from Sharaf DG two weeks ago. The unit stopped cooling completely and leaked water. (Test variant 21)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 2500.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-022",
+    "description": "Bought a Samsung Smart TV 65-inch from Carrefour for AED 3,200. Screen turned completely black after 5 days. (Test variant 22)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 3200.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-023",
+    "description": "Purchased an automatic washing machine from Emax for AED 1,850. Motor makes loud grinding noise and does not spin. (Test variant 23)",
+    "expected_merchant": "Emax",
+    "expected_amount": 1850.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-024",
+    "description": "I bought an electric cooking oven from Al-Futtaim ACE for AED 950. Heating element burned out on second usage. (Test variant 24)",
+    "expected_merchant": "Al-Futtaim ACE",
+    "expected_amount": 950.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEF-025",
+    "description": "Refrigerator purchased from Jumbo Electronics for AED 4,100 stopped freezing food and spoiled groceries. (Test variant 25)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 4100.0,
+    "expected_category": "defective_product",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": false,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-001",
+    "description": "Sharaf DG refused to honor the 2-year warranty on my microwave, claiming customer abuse without providing an inspection report. (Test variant 1)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 450.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-002",
+    "description": "Jumbo Electronics service center demanded AED 600 for spare parts that are covered under manufacturer warranty. (Test variant 2)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 600.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-003",
+    "description": "Emax service center has held my laptop for 35 days claiming parts unavailable, exceeding the 14-day statutory repair limit. (Test variant 3)",
+    "expected_merchant": "Emax",
+    "expected_amount": 3500.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-004",
+    "description": "Retailer refused free warranty repair for my water heater after 8 months, despite warranty card stating 3 years warranty. (Test variant 4)",
+    "expected_merchant": "Home Centre",
+    "expected_amount": 800.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-005",
+    "description": "Sharaf DG refused to honor the 2-year warranty on my microwave, claiming customer abuse without providing an inspection report. (Test variant 5)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 450.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-006",
+    "description": "Jumbo Electronics service center demanded AED 600 for spare parts that are covered under manufacturer warranty. (Test variant 6)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 600.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-007",
+    "description": "Emax service center has held my laptop for 35 days claiming parts unavailable, exceeding the 14-day statutory repair limit. (Test variant 7)",
+    "expected_merchant": "Emax",
+    "expected_amount": 3500.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-008",
+    "description": "Retailer refused free warranty repair for my water heater after 8 months, despite warranty card stating 3 years warranty. (Test variant 8)",
+    "expected_merchant": "Home Centre",
+    "expected_amount": 800.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-009",
+    "description": "Sharaf DG refused to honor the 2-year warranty on my microwave, claiming customer abuse without providing an inspection report. (Test variant 9)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 450.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-010",
+    "description": "Jumbo Electronics service center demanded AED 600 for spare parts that are covered under manufacturer warranty. (Test variant 10)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 600.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-011",
+    "description": "Emax service center has held my laptop for 35 days claiming parts unavailable, exceeding the 14-day statutory repair limit. (Test variant 11)",
+    "expected_merchant": "Emax",
+    "expected_amount": 3500.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-012",
+    "description": "Retailer refused free warranty repair for my water heater after 8 months, despite warranty card stating 3 years warranty. (Test variant 12)",
+    "expected_merchant": "Home Centre",
+    "expected_amount": 800.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-013",
+    "description": "Sharaf DG refused to honor the 2-year warranty on my microwave, claiming customer abuse without providing an inspection report. (Test variant 13)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 450.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-014",
+    "description": "Jumbo Electronics service center demanded AED 600 for spare parts that are covered under manufacturer warranty. (Test variant 14)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 600.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-015",
+    "description": "Emax service center has held my laptop for 35 days claiming parts unavailable, exceeding the 14-day statutory repair limit. (Test variant 15)",
+    "expected_merchant": "Emax",
+    "expected_amount": 3500.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-016",
+    "description": "Retailer refused free warranty repair for my water heater after 8 months, despite warranty card stating 3 years warranty. (Test variant 16)",
+    "expected_merchant": "Home Centre",
+    "expected_amount": 800.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-017",
+    "description": "Sharaf DG refused to honor the 2-year warranty on my microwave, claiming customer abuse without providing an inspection report. (Test variant 17)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 450.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-018",
+    "description": "Jumbo Electronics service center demanded AED 600 for spare parts that are covered under manufacturer warranty. (Test variant 18)",
+    "expected_merchant": "Jumbo Electronics",
+    "expected_amount": 600.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-019",
+    "description": "Emax service center has held my laptop for 35 days claiming parts unavailable, exceeding the 14-day statutory repair limit. (Test variant 19)",
+    "expected_merchant": "Emax",
+    "expected_amount": 3500.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-WAR-020",
+    "description": "Retailer refused free warranty repair for my water heater after 8 months, despite warranty card stating 3 years warranty. (Test variant 20)",
+    "expected_merchant": "Home Centre",
+    "expected_amount": 800.0,
+    "expected_category": "warranty_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-001",
+    "description": "I returned an unopened coffee machine to Lulu Hypermarket within 7 days with original invoice, but store refused refund and gave store credit. (Test variant 1)",
+    "expected_merchant": "Lulu",
+    "expected_amount": 650.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-002",
+    "description": "Store cancelled my order due to out of stock but refuses to refund money to my credit card for 45 days. (Test variant 2)",
+    "expected_merchant": "Amazon UAE",
+    "expected_amount": 1200.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-003",
+    "description": "Merchant refused refund for shoes with detached sole after 3 days of light wear. (Test variant 3)",
+    "expected_merchant": "Noon",
+    "expected_amount": 350.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-004",
+    "description": "I returned an unopened coffee machine to Lulu Hypermarket within 7 days with original invoice, but store refused refund and gave store credit. (Test variant 4)",
+    "expected_merchant": "Lulu",
+    "expected_amount": 650.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-005",
+    "description": "Store cancelled my order due to out of stock but refuses to refund money to my credit card for 45 days. (Test variant 5)",
+    "expected_merchant": "Amazon UAE",
+    "expected_amount": 1200.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-006",
+    "description": "Merchant refused refund for shoes with detached sole after 3 days of light wear. (Test variant 6)",
+    "expected_merchant": "Noon",
+    "expected_amount": 350.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-007",
+    "description": "I returned an unopened coffee machine to Lulu Hypermarket within 7 days with original invoice, but store refused refund and gave store credit. (Test variant 7)",
+    "expected_merchant": "Lulu",
+    "expected_amount": 650.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-008",
+    "description": "Store cancelled my order due to out of stock but refuses to refund money to my credit card for 45 days. (Test variant 8)",
+    "expected_merchant": "Amazon UAE",
+    "expected_amount": 1200.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-009",
+    "description": "Merchant refused refund for shoes with detached sole after 3 days of light wear. (Test variant 9)",
+    "expected_merchant": "Noon",
+    "expected_amount": 350.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-010",
+    "description": "I returned an unopened coffee machine to Lulu Hypermarket within 7 days with original invoice, but store refused refund and gave store credit. (Test variant 10)",
+    "expected_merchant": "Lulu",
+    "expected_amount": 650.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-011",
+    "description": "Store cancelled my order due to out of stock but refuses to refund money to my credit card for 45 days. (Test variant 11)",
+    "expected_merchant": "Amazon UAE",
+    "expected_amount": 1200.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-012",
+    "description": "Merchant refused refund for shoes with detached sole after 3 days of light wear. (Test variant 12)",
+    "expected_merchant": "Noon",
+    "expected_amount": 350.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-013",
+    "description": "I returned an unopened coffee machine to Lulu Hypermarket within 7 days with original invoice, but store refused refund and gave store credit. (Test variant 13)",
+    "expected_merchant": "Lulu",
+    "expected_amount": 650.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-014",
+    "description": "Store cancelled my order due to out of stock but refuses to refund money to my credit card for 45 days. (Test variant 14)",
+    "expected_merchant": "Amazon UAE",
+    "expected_amount": 1200.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-REF-015",
+    "description": "Merchant refused refund for shoes with detached sole after 3 days of light wear. (Test variant 15)",
+    "expected_merchant": "Noon",
+    "expected_amount": 350.0,
+    "expected_category": "refund_dispute",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-001",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 1)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-002",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 2)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-003",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 3)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-004",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 4)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-005",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 5)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-006",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 6)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-007",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 7)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-008",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 8)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-009",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 9)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-DEL-010",
+    "description": "Ordered a dining table from IKEA for AED 2,200 with delivery promised by 10th January. Three weeks have passed and delivery is repeatedly postponed without explanation. (Variant 10)",
+    "expected_merchant": "IKEA",
+    "expected_amount": 2200.0,
+    "expected_category": "delayed_delivery",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-001",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 1)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-002",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 2)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-003",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 3)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-004",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 4)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-005",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 5)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-006",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 6)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-007",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 7)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-008",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 8)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-009",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 9)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-010",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 10)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-011",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 11)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-012",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 12)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-013",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 13)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-BIL-014",
+    "description": "Carrefour cashier charged AED 480 instead of the shelf price for grocery items and refused to issue cash difference. (Variant 14)",
+    "expected_merchant": "Carrefour",
+    "expected_amount": 480.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-FIN-015",
+    "description": "My bank credit card was charged twice for an unauthorized international transaction of AED 1,450. The bank refuses to reverse the chargeback. (Variant 15)",
+    "expected_merchant": "Commercial Bank",
+    "expected_amount": 1450.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Sanadak - Financial and Insurance Ombudsman Unit",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-001",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 1)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-002",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 2)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-003",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 3)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-004",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 4)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-005",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 5)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-006",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 6)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-007",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 7)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-008",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 8)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-009",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 9)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-TEL-010",
+    "description": "My mobile telecom operator Etisalat charged me AED 850 for an inactive broadband data plan after cancellation was confirmed. (Variant 10)",
+    "expected_merchant": "Etisalat",
+    "expected_amount": 850.0,
+    "expected_category": "incorrect_billing",
+    "expected_jurisdiction_authority": "Telecommunications and Digital Government Regulatory Authority (TDRA)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-ADV-001",
+    "description": "Sharaf DG advertised a 50% discount on a laptop for AED 1,500, but at checkout they forced an additional mandatory warranty fee of AED 500. False advertising! (Variant 1)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 1500.0,
+    "expected_category": "misleading_advertising",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-ADV-002",
+    "description": "Sharaf DG advertised a 50% discount on a laptop for AED 1,500, but at checkout they forced an additional mandatory warranty fee of AED 500. False advertising! (Variant 2)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 1500.0,
+    "expected_category": "misleading_advertising",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-ADV-003",
+    "description": "Sharaf DG advertised a 50% discount on a laptop for AED 1,500, but at checkout they forced an additional mandatory warranty fee of AED 500. False advertising! (Variant 3)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 1500.0,
+    "expected_category": "misleading_advertising",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-ADV-004",
+    "description": "Sharaf DG advertised a 50% discount on a laptop for AED 1,500, but at checkout they forced an additional mandatory warranty fee of AED 500. False advertising! (Variant 4)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 1500.0,
+    "expected_category": "misleading_advertising",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  },
+  {
+    "id": "CASE-ADV-005",
+    "description": "Sharaf DG advertised a 50% discount on a laptop for AED 1,500, but at checkout they forced an additional mandatory warranty fee of AED 500. False advertising! (Variant 5)",
+    "expected_merchant": "Sharaf DG",
+    "expected_amount": 1500.0,
+    "expected_category": "misleading_advertising",
+    "expected_jurisdiction_authority": "Dubai Department of Economy and Tourism (DET - Consumer Rights CCCP)",
+    "has_documents": true,
+    "is_unsupported_claim": false
+  }
+]

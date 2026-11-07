@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "250mb"
+      }
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/docs",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/openapi.json",
+      "dest": "/api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ],
+  "env": {
+    "CIVICRESOLVE_ENV": "production",
+    "DATABASE_URL": "sqlite:////tmp/civicresolve.db",
+    "SECRET_KEY": "civicresolve-super-secure-production-secret-dubai-2026",
+    "N8N_NEW_COMPLAINT_URL": "https://askdubai.app.n8n.cloud/form/civicresolve",
+    "N8N_UPDATE_CASE_URL": "https://askdubai.app.n8n.cloud/form/civicresolve-update"
+  }
+}

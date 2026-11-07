@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  civicresolve-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: civicresolve-ai
+    restart: unless-stopped
+    ports:
+      - "8501:8501"  # Streamlit UI
+      - "8000:8000"  # FastAPI Backend
+    environment:
+      - CIVICRESOLVE_ENV=production
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DATABASE_URL=sqlite:///./civicresolve.db
+      - SECRET_KEY=civicresolve-dubai-super-secret-key-2026
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - PRIMARY_MODEL=qwen2.5:7b-instruct
+      - N8N_NEW_COMPLAINT_URL=https://askdubai.app.n8n.cloud/form/civicresolve
+      - N8N_UPDATE_CASE_URL=https://askdubai.app.n8n.cloud/form/civicresolve-update
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: civicresolve-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+
+volumes:
+  ollama-models:
