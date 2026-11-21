@@ -84,6 +84,15 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
+# Mount static assets for local UI access
+from fastapi.staticfiles import StaticFiles
+public_dir = os.path.join(PROJECT_ROOT, "public")
+if not os.path.exists(public_dir):
+    public_dir = os.path.join(os.path.dirname(PROJECT_ROOT), "public")
+if os.path.exists(public_dir):
+    app.mount("/", StaticFiles(directory=public_dir, html=True), name="static")
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=True)

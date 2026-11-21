@@ -1,19 +1,15 @@
 """
 CivicResolve AI - Document Intelligence OCR Engine
-Extracts textual content from PDF files and images (PNG, JPG, JPEG) using PyMuPDF and OCR.
-Provides clean fallback if Tesseract is not installed on the host system.
+Extracts textual content from PDF files and images using RapidOCR (PaddleOCR ONNX)
+and PyMuPDF native vector text with preprocessing and fallback handling.
 """
 import os
 import io
-import fitz  # PyMuPDF
-from PIL import Image
 from typing import Tuple, Dict, Any
 
-# Optional pytesseract
-try:
-    import pytesseract
-except ImportError:
-    pytesseract = None
+from document_processing.pdf_processor import inspect_and_process_pdf
+from document_processing.image_preprocessor import preprocess_image_bytes
+from document_processing.ocr_engine import run_ocr_on_image
 
 
 def extract_text_from_file(file_bytes: bytes, filename: str) -> Tuple[str, Dict[str, Any]]:
@@ -32,64 +28,45 @@ def extract_text_from_file(file_bytes: bytes, filename: str) -> Tuple[str, Dict[
     }
 
     if ext == ".pdf":
-        return _extract_pdf(file_bytes, metadata)
-    elif ext in [".png", ".jpg", ".jpeg", ".webp"]:
-        return _extract_image(file_bytes, metadata)
-    elif ext in [".txt", ".text"]:
-        return file_bytes.decode("utf-8", errors="ignore"), metadata
-    else:
-        raise ValueError(f"Unsupported file format '{ext}'. Supported: PDF, PNG, JPG, JPEG, TXT.")
-
-
-def _extract_pdf(file_bytes: bytes, metadata: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
-    """Extracts text from PDF pages using PyMuPDF; falls back to OCR if pages are images."""
-    extracted_pages = []
-    doc = fitz.open(stream=file_bytes, filetype="pdf")
-    metadata["page_count"] = len(doc)
-
-    ocr_used = False
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-        text = page.get_text("text").strip()
-        if text:
-            extracted_pages.append(f"--- Page {page_num + 1} ---\n{text}")
-        else:
-            # Scanned or image-only PDF page: attempt OCR
-            pix = page.get_pixmap()
-            img = Image.open(io.BytesIO(pix.tobytes("png")))
-            ocr_text = _run_ocr_on_pil_image(img)
-            if ocr_text:
-                extracted_pages.append(f"--- Page {page_num + 1} (OCR) ---\n{ocr_text}")
-                ocr_used = True
-
-    doc.close()
-    metadata["ocr_performed"] = ocr_used
-    metadata["extraction_method"] = "pymupdf_hybrid" if ocr_used else "pymupdf_text"
-    full_text = "\n\n".join(extracted_pages)
-    return full_text, metadata
-
-
-def _extract_image(file_bytes: bytes, metadata: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
-    """Extracts text from image using OCR or Pillow image inspection."""
-    img = Image.open(io.BytesIO(file_bytes))
-    metadata["dimensions"] = f"{img.width}x{img.height}"
-    metadata["format"] = img.format
-    metadata["ocr_performed"] = True
-
-    text = _run_ocr_on_pil_image(img)
-    metadata["extraction_method"] = "ocr_tesseract" if text else "image_metadata_only"
-    return text, metadata
-
-
-def _run_ocr_on_pil_image(img: Image.Image) -> str:
-    """Invokes pytesseract if configured; returns empty string if unavailable."""
-    if pytesseract is not None:
         try:
-            custom_cmd = os.getenv("TESSERACT_CMD")
-            if custom_cmd and os.path.exists(custom_cmd):
-                pytesseract.pytesseract.tesseract_cmd = custom_cmd
-            return pytesseract.image_to_string(img)
+            pdf_res = inspect_and_process_pdf(file_bytes)
+            metadata["page_count"] = pdf_res["page_count"]
+            metadata["is_scanned"] = pdf_res["is_scanned"]
+
+            extracted_pages = []
+            ocr_performed = False
+
+            for p in pdf_res["pages"]:
+                p_num = p["page_number"]
+                if p["is_scanned"] and p.get("preview_png_bytes"):
+                    ocr_res = run_ocr_on_image(p["preview_png_bytes"], page_number=p_num)
+                    extracted_pages.append(f"--- Page {p_num} (RapidOCR) ---\n{ocr_res['full_text']}")
+                    ocr_performed = True
+                else:
+                    extracted_pages.append(f"--- Page {p_num} ---\n{p['native_text']}")
+
+            metadata["ocr_performed"] = ocr_performed
+            metadata["extraction_method"] = "pymupdf_rapidocr_hybrid" if ocr_performed else "pymupdf_vector_text"
+            full_text = "\n\n".join(extracted_pages)
+            return full_text, metadata
         except Exception as e:
-            # Tesseract binary not on PATH or execution error
-            pass
-    return ""
+            # Fallback
+            metadata["error"] = str(e)
+            return "", metadata
+
+    elif ext in [".png", ".jpg", ".jpeg", ".webp"]:
+        enhanced_bgr, prep_meta = preprocess_image_bytes(file_bytes)
+        ocr_res = run_ocr_on_image(enhanced_bgr, page_number=1)
+        metadata["dimensions"] = f"{prep_meta.get('original_width')}x{prep_meta.get('original_height')}"
+        metadata["ocr_performed"] = True
+        metadata["mean_confidence"] = ocr_res.get("mean_confidence", 0.0)
+        metadata["extraction_method"] = "rapidocr_paddle_onnx"
+        return ocr_res["full_text"], metadata
+
+    elif ext in [".txt", ".text"]:
+        metadata["ocr_performed"] = False
+        metadata["extraction_method"] = "plain_text"
+        return file_bytes.decode("utf-8", errors="ignore"), metadata
+
+    else:
+        raise ValueError(f"Unsupported file format '{ext}'. Supported: PDF, PNG, JPG, JPEG, WebP, TXT.")

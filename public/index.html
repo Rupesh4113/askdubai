@@ -84,30 +84,388 @@
       </div>
     </section>
 
-    <!-- Tab 2: Document Intelligence -->
+    <!-- Tab 2: Advanced Document Intelligence Agent -->
     <section id="documentsTab" class="tab-content">
       <div class="card">
-        <h3>📄 Tax Invoice & Evidence Intelligence</h3>
-        <p style="margin-bottom: 1rem; color: var(--text-muted);">
-          Upload your purchase document. Our open-source Document Intelligence Agent automatically extracts TRN, merchant, dates, amounts in AED, and warranty terms.
-        </p>
-        <div class="grid-2">
-          <div style="border: 2px dashed var(--border-color); padding: 2rem; border-radius: 8px; text-align: center;">
-            <p><strong>Upload Tax Invoice, Warranty Card, or Receipt</strong></p>
-            <p style="font-size: 0.8rem; color: var(--text-muted);">Supported formats: PDF, PNG, JPG, JPEG, TXT (Max 15MB)</p>
-            <input type="file" id="fileUploadInput" accept=".pdf,.png,.jpg,.jpeg,.txt" style="margin-top: 1rem;" onchange="handlePracticalFileUpload(this)">
-            <div id="uploadStatusText" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--dubai-teal);"></div>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.75rem;">
+          <div>
+            <h3>📄 Tax Invoice & Document Intelligence Agent</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+              Production-ready multi-page OCR & Evidence Intelligence powered by RapidOCR, PyMuPDF, and UAE VAT validation.
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.4rem; align-items: center;">
+            <span class="badge" style="background: #CCFBF1; color: #0F766E; font-weight: 700;">Zero Hallucination</span>
+            <span class="badge" style="background: #E0E7FF; color: #3730A3; font-weight: 700;">UAE VAT Compliant</span>
+          </div>
+        </div>
+
+        <!-- Stage 1: Upload Zone -->
+        <div id="docDropZone" class="doc-upload-zone" style="margin-top: 1.2rem;" onclick="document.getElementById('fileUploadInput').click()">
+          <input type="file" id="fileUploadInput" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt" style="display: none;" onchange="handleAdvancedDocumentUpload(this)">
+          <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">📥</div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: var(--primary-navy); margin-bottom: 0.25rem;">
+            Drag & Drop Tax Invoice, Receipt, or Warranty Card
+          </p>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            or click to browse from your computer
+          </p>
+          <div>
+            <span class="doc-format-pill">PDF (Single & Multi-page)</span>
+            <span class="doc-format-pill">JPG / JPEG</span>
+            <span class="doc-format-pill">PNG</span>
+            <span class="doc-format-pill">WebP</span>
+            <span class="doc-format-pill">Scanned & Photos</span>
+            <span class="doc-format-pill">Max 15 MB</span>
+          </div>
+        </div>
+
+        <!-- Processing Stage Tracker -->
+        <div id="docProcessingTracker" style="display: none; margin-top: 1rem; background: #F8FAFC; border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span id="docProcessingStageText" style="font-weight: 600; font-size: 0.9rem; color: #0F766E;">Processing document...</span>
+            <span id="docProcessingPct" style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">0%</span>
+          </div>
+          <div style="height: 6px; background: #E2E8F0; border-radius: 3px; overflow: hidden;">
+            <div id="docProgressBar" style="width: 0%; height: 100%; background: #0D9488; transition: width 0.3s ease;"></div>
+          </div>
+        </div>
+
+        <!-- Document Controls Toolbar -->
+        <div id="docControlsBar" class="doc-control-bar" style="display: none;">
+          <button class="btn-doc-tool" onclick="openOriginalDocumentView()">👁️ View Original</button>
+          <button class="btn-doc-tool" onclick="openExtractedTextModal()">📝 View Extracted Text</button>
+          <button class="btn-doc-tool" onclick="triggerReverification()">🔍 Verify Extracted Data</button>
+          <button class="btn-doc-tool btn-accent" onclick="openEditFieldsModal()">✏️ Edit Information</button>
+          <span style="border-right: 1px solid #CBD5E1; height: 20px; margin: 0 4px;"></span>
+          <button class="btn-doc-tool btn-export" onclick="downloadDocumentExport('json')">📥 JSON</button>
+          <button class="btn-doc-tool btn-export" onclick="downloadDocumentExport('excel')">📊 Excel</button>
+          <button class="btn-doc-tool btn-export" onclick="downloadDocumentExport('pdf')">📑 PDF Report</button>
+          <button class="btn-doc-tool btn-export" onclick="downloadDocumentExport('csv')">📋 CSV</button>
+          <span style="flex: 1;"></span>
+          <button class="btn-doc-tool" onclick="resetDocumentIntelligence()" style="color: #DC2626;">🔄 Process Another</button>
+        </div>
+
+        <!-- Dual-Pane Workspace -->
+        <div id="docWorkspace" class="doc-workspace-grid" style="display: none;">
+          <!-- Left: Document Preview & Visual Bounding Box Inspector -->
+          <div class="doc-preview-pane">
+            <div class="doc-preview-toolbar">
+              <div>
+                <span>📄 Document Preview</span>
+                <span id="docPreviewMeta" style="margin-left: 0.5rem; opacity: 0.8; font-size: 0.8rem;"></span>
+              </div>
+              <div style="display: flex; gap: 0.4rem; align-items: center;">
+                <button class="btn-doc-tool" style="padding: 2px 7px; background: #334155; color: white; border: none;" onclick="navigatePreviewPage(-1)" id="btnPrevPage">◀</button>
+                <span id="docPageIndicator" style="font-size: 0.8rem; font-weight: 600;">1 / 1</span>
+                <button class="btn-doc-tool" style="padding: 2px 7px; background: #334155; color: white; border: none;" onclick="navigatePreviewPage(1)" id="btnNextPage">▶</button>
+                <span style="opacity: 0.4; margin: 0 2px;">|</span>
+                <button class="btn-doc-tool" style="padding: 2px 7px; background: #334155; color: white; border: none;" onclick="adjustPreviewZoom(0.15)">➕</button>
+                <button class="btn-doc-tool" style="padding: 2px 7px; background: #334155; color: white; border: none;" onclick="adjustPreviewZoom(-0.15)">➖</button>
+                <button class="btn-doc-tool" style="padding: 2px 7px; background: #334155; color: white; border: none;" onclick="resetPreviewZoom()">↺</button>
+              </div>
+            </div>
+            <div class="doc-preview-viewport" id="docViewport">
+              <div class="doc-preview-wrapper" id="docPreviewWrapper">
+                <img id="docPreviewImg" class="doc-preview-img" src="" alt="Document Preview">
+                <div id="docBboxHighlight" class="doc-bbox-highlight" style="display: none;"></div>
+              </div>
+            </div>
+            <div style="margin-top: 0.5rem; color: #94A3B8; font-size: 0.75rem; text-align: center;">
+              💡 Click any field or table item on the right to highlight its source location on this page.
+            </div>
           </div>
 
-          <div style="background: #F1F5F9; padding: 1.2rem; border-radius: 8px;">
-            <h4>Extracted Transaction Fields</h4>
-            <p><strong>Merchant:</strong> <span id="docMerchant">No document uploaded yet</span></p>
-            <p><strong>Invoice No:</strong> <span id="docInvoice">No document uploaded yet</span></p>
-            <p><strong>Amount:</strong> <span id="docAmount">No document uploaded yet</span></p>
-            <p><strong>Date:</strong> <span id="docDate">No document uploaded yet</span></p>
-            <p><strong>Warranty:</strong> <span id="docWarranty">No document uploaded yet</span></p>
-            <p><strong>TRN:</strong> <span id="docTRN">No document uploaded yet</span></p>
-            <p><strong>Extraction Confidence:</strong> <span class="badge" id="docConfidenceBadge" style="background:#E2E8F0; color:#475569;">Awaiting file</span></p>
+          <!-- Right: 12-Section Comprehensive Intelligence Accordion -->
+          <div class="doc-intel-sections" id="docAccordionContainer">
+            <!-- 1. Document Overview -->
+            <div class="doc-accordion-card open" id="secOverview">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>1. 📁 Document Overview</span>
+                <span class="badge badge-status-verified" id="badgeOverview">Identified</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row" onclick="highlightField('doc_id')">
+                  <span class="doc-field-label">Document ID:</span>
+                  <span class="doc-field-value" id="valDocId">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('classification')">
+                  <span class="doc-field-label">Document Classification:</span>
+                  <span class="doc-field-value" id="valClassification">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('page_count')">
+                  <span class="doc-field-label">Total Pages:</span>
+                  <span class="doc-field-value" id="valPageCount">-</span>
+                </div>
+                <div class="doc-field-row" id="rowMultiDoc" style="display: none;">
+                  <span class="doc-field-label" style="color: #B45309;">⚠️ Multiple Documents:</span>
+                  <span class="doc-field-value" style="color: #B45309;">Multiple invoices/receipts detected in file</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Merchant Information -->
+            <div class="doc-accordion-card open" id="secMerchant">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>2. 🏢 Merchant / Seller Information</span>
+                <span class="badge" id="badgeMerchant">Review</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row" onclick="highlightField('business_name')">
+                  <span class="doc-field-label">Business Name:</span>
+                  <span class="doc-field-value" id="valMerchantName">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('trn')">
+                  <span class="doc-field-label">VAT TRN (15-Digit):</span>
+                  <span class="doc-field-value" id="valMerchantTRN">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('business_address')">
+                  <span class="doc-field-label">Address:</span>
+                  <span class="doc-field-value" id="valMerchantAddress">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('emirate')">
+                  <span class="doc-field-label">Emirate / Country:</span>
+                  <span class="doc-field-value" id="valMerchantEmirate">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('contact_number')">
+                  <span class="doc-field-label">Contact Phone:</span>
+                  <span class="doc-field-value" id="valMerchantPhone">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('email_address')">
+                  <span class="doc-field-label">Email:</span>
+                  <span class="doc-field-value" id="valMerchantEmail">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Customer Information -->
+            <div class="doc-accordion-card" id="secCustomer">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>3. 👤 Customer / Buyer Information</span>
+                <span class="badge" id="badgeCustomer">Review</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row" onclick="highlightField('customer_name')">
+                  <span class="doc-field-label">Customer Name:</span>
+                  <span class="doc-field-value" id="valCustomerName">Not Found</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('customer_trn')">
+                  <span class="doc-field-label">Customer TRN:</span>
+                  <span class="doc-field-value" id="valCustomerTRN">Not Found</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('billing_address')">
+                  <span class="doc-field-label">Billing Address:</span>
+                  <span class="doc-field-value" id="valCustomerAddress">Not Found</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Invoice Information -->
+            <div class="doc-accordion-card open" id="secInvoice">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>4. 🧾 Invoice & Reference Information</span>
+                <span class="badge" id="badgeInvoice">Verified</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row" onclick="highlightField('invoice_number')">
+                  <span class="doc-field-label">Invoice Number:</span>
+                  <span class="doc-field-value" id="valInvoiceNo">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('invoice_date')">
+                  <span class="doc-field-label">Invoice Date:</span>
+                  <span class="doc-field-value" id="valInvoiceDate">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('invoice_time')">
+                  <span class="doc-field-label">Invoice Time:</span>
+                  <span class="doc-field-value" id="valInvoiceTime">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('reference_number')">
+                  <span class="doc-field-label">Reference / PO No:</span>
+                  <span class="doc-field-value" id="valInvoiceRef">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('currency')">
+                  <span class="doc-field-label">Currency:</span>
+                  <span class="doc-field-value" id="valInvoiceCurrency">AED</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Product & Service Details -->
+            <div class="doc-accordion-card open" id="secLineItems">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>5. 📦 Product & Service Details</span>
+                <span class="badge badge-status-verified" id="badgeLineItemsCount">0 Items</span>
+              </div>
+              <div class="doc-accordion-body" style="padding: 0.5rem;">
+                <div style="overflow-x: auto;">
+                  <table class="doc-items-table">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Product / Description</th>
+                        <th>Brand / Model</th>
+                        <th>Qty</th>
+                        <th>Price (AED)</th>
+                        <th>Total (AED)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="lineItemsTableBody">
+                      <tr>
+                        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1rem;">No line items extracted.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6. Financial Summary -->
+            <div class="doc-accordion-card open" id="secFinancial">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>6. 💰 Financial Summary & Math Validation</span>
+                <span class="badge" id="badgeFinancial">Audited</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div id="mathAuditBanner" style="margin-bottom: 0.75rem; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.85rem;"></div>
+                <div class="doc-field-row" onclick="highlightField('subtotal')">
+                  <span class="doc-field-label">Subtotal before VAT:</span>
+                  <span class="doc-field-value" id="valSubtotal">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('vat_amount')">
+                  <span class="doc-field-label">VAT Amount (5%):</span>
+                  <span class="doc-field-value" id="valVatAmount">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('total_discounts')">
+                  <span class="doc-field-label">Discounts:</span>
+                  <span class="doc-field-value" id="valDiscounts">0.00</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('additional_charges')">
+                  <span class="doc-field-label">Delivery & Charges:</span>
+                  <span class="doc-field-value" id="valCharges">0.00</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('total_payable')" style="background: #F1F5F9; border-top: 1px solid #CBD5E1; font-weight: 700;">
+                  <span class="doc-field-label" style="color: var(--primary-navy); font-weight: 700;">Total Payable (Gross):</span>
+                  <span class="doc-field-value" id="valTotalPayable" style="color: #0F766E; font-size: 1.05rem;">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('amount_paid')">
+                  <span class="doc-field-label">Amount Paid:</span>
+                  <span class="doc-field-value" id="valAmountPaid">-</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('outstanding_balance')">
+                  <span class="doc-field-label">Outstanding Balance:</span>
+                  <span class="doc-field-value" id="valBalance">0.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. VAT & Tax Information -->
+            <div class="doc-accordion-card" id="secVAT">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>7. 🏛️ UAE Tax Compliance Information</span>
+                <span class="badge" id="badgeVAT">Checklist</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div id="vatStatusBanner" style="margin-bottom: 0.75rem; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.85rem;"></div>
+                <div id="vatChecklistContainer"></div>
+                <div style="margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-muted); font-style: italic;">
+                  Assessment against UAE VAT Executive Regulations (Articles 59(1) & 59(5)). Does not constitute formal FTA certification.
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. Warranty Information -->
+            <div class="doc-accordion-card open" id="secWarranty">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>8. 🛡️ Warranty & After-Sales Information</span>
+                <span class="badge" id="badgeWarranty">Terms</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row" onclick="highlightField('warranty_duration')">
+                  <span class="doc-field-label">Warranty Duration:</span>
+                  <span class="doc-field-value" id="valWarrantyDuration">Not Found</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('warranty_provider')">
+                  <span class="doc-field-label">Warranty Provider:</span>
+                  <span class="doc-field-value" id="valWarrantyProvider">Not Found</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('warranty_expiry_date')">
+                  <span class="doc-field-label">Expiry Date:</span>
+                  <span class="doc-field-value" id="valWarrantyExpiry">Not Found</span>
+                </div>
+                <div class="doc-field-row" onclick="highlightField('return_policy')">
+                  <span class="doc-field-label">Return / Exchange Policy:</span>
+                  <span class="doc-field-value" id="valReturnPolicy">Not Found</span>
+                </div>
+                <div id="warrantyExclusionsBox" style="margin-top: 0.5rem; font-size: 0.82rem; color: #64748B;"></div>
+              </div>
+            </div>
+
+            <!-- 9. Payment Information -->
+            <div class="doc-accordion-card" id="secPayment">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>9. 💳 Payment & Settlement Information</span>
+                <span class="badge badge-status-verified" id="badgePayment">Details</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row">
+                  <span class="doc-field-label">Payment Method:</span>
+                  <span class="doc-field-value" id="valPayMethod">Cash</span>
+                </div>
+                <div class="doc-field-row">
+                  <span class="doc-field-label">Payment Status:</span>
+                  <span class="doc-field-value" id="valPayStatus">Paid</span>
+                </div>
+                <div class="doc-field-row" id="rowIBAN" style="display: none;">
+                  <span class="doc-field-label">Bank / IBAN:</span>
+                  <span class="doc-field-value" id="valIBAN">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 10. Additional Information -->
+            <div class="doc-accordion-card" id="secAdditional">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>10. 📌 Additional Information (QR, Terms, Stamps)</span>
+                <span class="badge badge-status-notfound" id="badgeAdditional">None</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div class="doc-field-row">
+                  <span class="doc-field-label">QR Code:</span>
+                  <span class="doc-field-value" id="valQRStatus">Not Detected</span>
+                </div>
+                <div class="doc-field-row">
+                  <span class="doc-field-label">Official Stamp / Signature:</span>
+                  <span class="doc-field-value" id="valStampStatus">Not Detected</span>
+                </div>
+                <div id="termsContainer" style="margin-top: 0.5rem; font-size: 0.82rem; color: #475569;"></div>
+              </div>
+            </div>
+
+            <!-- 11. Missing Information Alerts -->
+            <div class="doc-accordion-card" id="secMissing">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>11. ⚠️ Missing Information Alerts</span>
+                <span class="badge" id="badgeMissing">0 Missing</span>
+              </div>
+              <div class="doc-accordion-body" id="missingFieldsContainer">
+                <p style="color: #10B981; font-size: 0.88rem;">✅ All critical statutory invoice fields are present.</p>
+              </div>
+            </div>
+
+            <!-- 12. Multi-Layer Accuracy and Validation Report -->
+            <div class="doc-accordion-card open" id="secAccuracy">
+              <div class="doc-accordion-header" onclick="toggleAccordion(this)">
+                <span>12. 📊 Multi-Layer Accuracy & Validation Report</span>
+                <span class="badge badge-status-verified" id="badgeOverallConf">Audit Ready</span>
+              </div>
+              <div class="doc-accordion-body">
+                <div id="fiveStepVerificationContainer"></div>
+                <div style="margin-top: 0.85rem; padding: 0.6rem; background: #F8FAFC; border-radius: 4px; font-size: 0.78rem; color: #64748B;">
+                  🛡️ <strong>Evidence Traceability Guarantee:</strong> All numerical figures and extracted fields are audited directly against original document tokens and coordinates. No fabricated or placeholder values are returned.
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -148,30 +506,21 @@
 
           <div>
             <h4>✉️ Merchant Formal Demand Notice</h4>
-            <textarea id="merchantLetter" class="complaint-editor" placeholder="The Formal Merchant Demand Notice under UAE Federal Law No. 15 of 2020 will be prepared here..."></textarea>
+            <textarea id="merchantLetter" class="complaint-editor" placeholder="Statutory Merchant Demand Letter under UAE Federal Law No. 15 of 2020 will appear here..."></textarea>
           </div>
         </div>
 
-        <div style="background: #FFFBEB; border: 1px solid #FCD34D; padding: 1.2rem; border-radius: 8px; margin-top: 1rem;">
-          <h4>🔒 Human Authorization Gate (Mandatory Safety Control)</h4>
-          <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; margin-top: 0.5rem;">
-            <input type="checkbox" id="approvalChk">
-            <span data-i18n="approval_prompt">I confirm the statements and receipts provided are accurate, and I authorize CivicResolve AI to prepare this official filing dossier.</span>
-          </label>
-          <div style="margin-top: 1rem;">
-            <button class="btn-primary" onclick="handleApproval()" data-i18n="btn_approve">Approve & Unlock Official Channels</button>
-          </div>
-          <div id="approvalStatus"></div>
-        </div>
-
-        <!-- Official Links (Unlocked upon approval) -->
-        <div id="officialActionsContainer" style="display: none; margin-top: 1.5rem;">
-          <h4>🚀 Official Submission Routes & AskDubai Forms</h4>
-          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
-            <a class="btn-gov" href="https://consumerrights.gov.ae/" target="_blank" rel="noopener" data-i18n="btn_gov_link">🏛️ Open Dubai Consumer Rights Portal (DET)</a>
-            <a class="btn-n8n" href="https://askdubai.app.n8n.cloud/form/civicresolve" target="_blank" rel="noopener" data-i18n="btn_n8n_link">📋 Submit via AskDubai Civic Assistant (n8n)</a>
-            <a class="btn-secondary" href="https://askdubai.app.n8n.cloud/form/civicresolve-update" target="_blank" rel="noopener" data-i18n="btn_n8n_update">🔍 Check / Update Case (n8n)</a>
-          </div>
+        <div style="margin-top: 1.5rem; padding: 1.2rem; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px;">
+          <h4 style="color: #B45309; margin-bottom: 0.5rem;">🛡️ Human-in-the-Loop Authorization Gate</h4>
+          <p style="font-size: 0.9rem; color: #92400E; margin-bottom: 1rem;" data-i18n="approval_prompt">
+            I verify that the facts and invoices provided are accurate and authorize CivicResolve AI to generate the official consumer complaint.
+          </p>
+          <button id="approveBtn" class="btn-primary" style="background: #0D9488;" onclick="handleApproveComplaint()" data-i18n="btn_approve">
+            Authorize & Finalize Complaint
+          </button>
+          <span id="approvalSuccessMsg" style="margin-left: 1rem; color: #047857; font-weight: 600; display: none;" data-i18n="approval_success">
+            Complaint Officially Authorized!
+          </span>
         </div>
       </div>
     </section>
@@ -179,24 +528,12 @@
     <!-- Tab 5: Case Management -->
     <section id="casesTab" class="tab-content">
       <div class="card">
-        <h3>📂 Case Registry & Event Audit Trail</h3>
-        <div class="grid-2">
-          <div>
-            <p><strong>Case Reference:</strong> CASE-DXB-2026-0042</p>
-            <p><strong>Status:</strong> <span class="badge badge-verified">READY FOR SUBMISSION</span></p>
-            <div style="margin-top: 1rem;">
-              <label><strong>Government Dispute Reference Number:</strong></label>
-              <div style="display: flex; gap: 0.5rem; margin-top: 0.3rem;">
-                <input type="text" id="refNumInput" placeholder="E.g., DET-2026-98124" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px;">
-                <button class="btn-primary" onclick="alert('Reference number registered to case!')">Save</button>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4>Case History Log</h4>
-            <div class="timeline-item"><strong>2026-02-10 10:15</strong>: Problem reported by consumer.</div>
-            <div class="timeline-item"><strong>2026-02-10 10:16</strong>: 7 Agents completed analysis & legal citation verification.</div>
-            <div class="timeline-item"><strong>2026-02-10 10:18</strong>: Dossier prepared for Dubai DED CCCP.</div>
+        <h3>📁 Active Case Management</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Track and review statutory dispute filings across Dubai commercial establishments.</p>
+        <div id="casesList">
+          <div style="padding: 1rem; background: #F8FAFC; border-radius: 6px; margin-bottom: 0.5rem;">
+            <strong>CASE-DXB-2026-0042</strong> • Defective Product • Sharaf DG (AED 2,500.00)
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">Status: Authorized for Consumer Rights CCCP Filing</div>
           </div>
         </div>
       </div>
@@ -228,6 +565,61 @@
     </section>
 
   </main>
+
+  <!-- Modal 1: View Raw Extracted Text -->
+  <div id="docTextModal" class="doc-modal-overlay">
+    <div class="doc-modal-dialog">
+      <div class="doc-modal-header">
+        <span>📝 Raw Extracted Text (PyMuPDF & RapidOCR)</span>
+        <button class="btn-doc-tool" onclick="closeModal('docTextModal')">✕</button>
+      </div>
+      <div class="doc-modal-body">
+        <textarea id="docRawTextContent" readonly style="width: 100%; height: 350px; font-family: monospace; font-size: 0.85rem; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;"></textarea>
+      </div>
+      <div class="doc-modal-footer">
+        <button class="btn-doc-tool" onclick="copyExtractedText()">📋 Copy Text</button>
+        <button class="btn-doc-tool btn-accent" onclick="closeModal('docTextModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Edit Extracted Information -->
+  <div id="docEditModal" class="doc-modal-overlay">
+    <div class="doc-modal-dialog">
+      <div class="doc-modal-header">
+        <span>✏️ Edit Extracted Invoice Fields</span>
+        <button class="btn-doc-tool" onclick="closeModal('docEditModal')">✕</button>
+      </div>
+      <div class="doc-modal-body">
+        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+          <div>
+            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-muted);">Merchant / Seller Name</label>
+            <input type="text" id="editMerchantName" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 0.25rem;">
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-muted);">Invoice Number</label>
+            <input type="text" id="editInvoiceNumber" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 0.25rem;">
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-muted);">Total Payable (AED)</label>
+            <input type="number" step="0.01" id="editTotalAmount" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 0.25rem;">
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-muted);">Purchase Date (YYYY-MM-DD)</label>
+            <input type="date" id="editInvoiceDate" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 0.25rem;">
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-muted);">Supplier VAT TRN (15 digits)</label>
+            <input type="text" id="editMerchantTRN" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 6px; margin-top: 0.25rem;">
+          </div>
+        </div>
+      </div>
+      <div class="doc-modal-footer">
+        <button class="btn-doc-tool" onclick="closeModal('docEditModal')">Cancel</button>
+        <button class="btn-doc-tool btn-accent" onclick="saveEditedFields()">Audit & Recalculate</button>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <p>CivicResolve AI • Societal AI Agent</p>

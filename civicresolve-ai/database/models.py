@@ -74,7 +74,7 @@ class Document(Base):
     __tablename__ = "documents"
 
     id = Column(String(36), primary_key=True, default=generate_uuid)
-    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=False, index=True)
+    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=True, index=True)
     filename = Column(String(255), nullable=False)
     file_type = Column(String(20), nullable=False)
     storage_reference = Column(String(500), nullable=False)
@@ -91,7 +91,7 @@ class EvidenceSource(Base):
     __tablename__ = "evidence_sources"
 
     id = Column(String(36), primary_key=True, default=generate_uuid)
-    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=False, index=True)
+    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=True, index=True)
     source_title = Column(String(255), nullable=False)
     source_url = Column(String(500), nullable=False)
     source_date = Column(String(50), nullable=True)
@@ -106,7 +106,7 @@ class Approval(Base):
     __tablename__ = "approvals"
 
     id = Column(String(36), primary_key=True, default=generate_uuid)
-    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=False, index=True)
+    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=True, index=True)
     action_type = Column(String(100), nullable=False)
     approved = Column(Boolean, default=False, nullable=False)
     user_notes = Column(Text, nullable=True)
@@ -120,7 +120,7 @@ class CaseEvent(Base):
     __tablename__ = "case_events"
 
     id = Column(String(36), primary_key=True, default=generate_uuid)
-    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=False, index=True)
+    complaint_id = Column(String(36), ForeignKey("complaints.id"), nullable=True, index=True)
     event_type = Column(String(100), nullable=False, index=True)
     description = Column(Text, nullable=False)
     metadata_json = Column(Text, nullable=True)
