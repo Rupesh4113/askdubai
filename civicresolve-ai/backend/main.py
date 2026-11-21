@@ -84,13 +84,17 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
-# Mount static assets for local UI access
-from fastapi.staticfiles import StaticFiles
-public_dir = os.path.join(PROJECT_ROOT, "public")
-if not os.path.exists(public_dir):
-    public_dir = os.path.join(os.path.dirname(PROJECT_ROOT), "public")
-if os.path.exists(public_dir):
-    app.mount("/", StaticFiles(directory=public_dir, html=True), name="static")
+# Mount static assets for local UI access (skip in Vercel serverless runtime where static files are served by CDN)
+if os.getenv("VERCEL") != "1":
+    try:
+        from fastapi.staticfiles import StaticFiles
+        public_dir = os.path.join(PROJECT_ROOT, "public")
+        if not os.path.exists(public_dir):
+            public_dir = os.path.join(os.path.dirname(PROJECT_ROOT), "public")
+        if os.path.exists(public_dir):
+            app.mount("/", StaticFiles(directory=public_dir, html=True), name="static")
+    except Exception as e:
+        print(f"[StaticFiles] Local mount notice: {e}")
 
 
 if __name__ == "__main__":

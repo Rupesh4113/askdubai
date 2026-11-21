@@ -49,6 +49,14 @@ def preprocess_image_bytes(image_bytes: bytes) -> Tuple[np.ndarray, Dict[str, An
     }
 
     if cv2 is None:
+        try:
+            from PIL import ImageEnhance
+            enhancer = ImageEnhance.Contrast(pil_img)
+            pil_img = enhancer.enhance(1.2)
+            meta["clahe_applied"] = True
+            bgr = np.array(pil_img)[:, :, ::-1]
+        except Exception:
+            pass
         return bgr, meta
 
     # 2. Correct perspective distortion if a clear document quadrilateral is found

@@ -101,9 +101,14 @@ def chunk_document(doc_data: Dict[str, Any], max_chunk_words: int = 250) -> List
 
 def build_faiss_index(force_rebuild: bool = False) -> bool:
     """Ingests official documents, computes embeddings, and persists FAISS index."""
-    os.makedirs(INDEX_DIR, exist_ok=True)
     if not force_rebuild and os.path.exists(INDEX_FILE) and os.path.exists(METADATA_FILE):
         return True
+
+    try:
+        os.makedirs(INDEX_DIR, exist_ok=True)
+    except OSError:
+        # Read-only filesystem in serverless environments (e.g. Vercel)
+        return False
 
     if not os.path.exists(SOURCES_DIR):
         os.makedirs(SOURCES_DIR, exist_ok=True)

@@ -87,6 +87,16 @@ def inspect_and_process_pdf(file_bytes: bytes) -> Dict[str, Any]:
                             tables.append(clean_table)
                 except Exception:
                     pass
+            if not tables and hasattr(page, "find_tables"):
+                try:
+                    tabs = page.find_tables()
+                    for t in tabs:
+                        extracted = t.extract()
+                        if extracted and len(extracted) > 1:
+                            clean_table = [[cell.strip() if cell else "" for cell in row] for row in extracted]
+                            tables.append(clean_table)
+                except Exception:
+                    pass
 
             # 3. Render high-resolution preview image (DPI 150)
             zoom = 150 / 72.0  # ~2.08x

@@ -17,8 +17,16 @@ from database.database import init_db
 from rag.ingestion import build_faiss_index
 from backend.main import app
 
-init_db()
-build_faiss_index()
+# Safe startup for serverless environment
+try:
+    init_db()
+except Exception as e:
+    print(f"[Vercel Startup] Database init notice: {e}")
 
-# Export ASGI app instance for Vercel Serverless runtime
+try:
+    build_faiss_index()
+except Exception as e:
+    print(f"[Vercel Startup] FAISS index notice: {e}")
+
+# Export both app and handler for Vercel Serverless runtime
 handler = app
