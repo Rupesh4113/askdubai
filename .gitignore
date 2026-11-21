@@ -218,3 +218,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# CivicResolve AI Local Databases & Storage
+*.db
+*.sqlite
+civicresolve.db
+uploads/
+civicresolve-ai/uploads/
+*.faiss
+.vercel/
+
