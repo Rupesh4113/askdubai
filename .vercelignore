@@ -1,0 +1,43 @@
+# Vercel Deployment Ignore Configuration
+# Exclude heavy binaries, caches, test suites, and documentation from Lambda bundle
+
+# Version Control
+.git/
+.gitignore
+.gitattributes
+
+# Test Suites & Benchmarks
+tests/
+civicresolve-ai/tests/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Database & Storage
+*.db
+*.sqlite
+civicresolve.db
+uploads/
+civicresolve-ai/uploads/
+data/
+
+# Documentation & Assets
+docs/
+civicresolve-ai/docs/
+README.md
+civicresolve-ai/README.md
+LICENSE
+
+# Docker & Microservices (Deployed Separately)
+Dockerfile*
+docker-compose*.yml
+civicresolve-ai/Dockerfile*
+civicresolve-ai/docker-compose*.yml
+civicresolve-ai/document_service/
+
+# Local Environment Secrets
+.env
+.env.*
+!.env.example

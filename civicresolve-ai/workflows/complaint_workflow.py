@@ -3,7 +3,14 @@ CivicResolve AI - LangGraph Multi-Agent Complaint Workflow
 Defines a stateful graph connecting all seven agents with explicit human-in-the-loop approval gates.
 """
 from typing import Dict, Any, List, TypedDict, Optional
-from langgraph.graph import StateGraph, END
+try:
+    from langgraph.graph import StateGraph, END
+    HAS_LANGGRAPH = True
+except ImportError:
+    StateGraph = None
+    END = None
+    HAS_LANGGRAPH = False
+
 from agents.supervisor import SupervisorAgent
 
 
@@ -51,15 +58,23 @@ def human_approval_check(state: ComplaintState) -> str:
 
 
 def build_complaint_graph():
-    """Builds and compiles the LangGraph StateGraph for CivicResolve AI."""
-    workflow = StateGraph(ComplaintState)
+    """Builds and compiles the LangGraph StateGraph for CivicResolve AI with pure-Python fallback."""
+    if HAS_LANGGRAPH and StateGraph is not None and END is not None:
+        try:
+            workflow = StateGraph(ComplaintState)
+            workflow.add_node("supervisor_agent", supervisor_pipeline_node)
+            workflow.set_entry_point("supervisor_agent")
+            workflow.add_edge("supervisor_agent", END)
+            return workflow.compile()
+        except Exception as e:
+            print(f"[Workflow] LangGraph compilation notice: {e}. Using pure-Python graph runner.")
 
-    workflow.add_node("supervisor_agent", supervisor_pipeline_node)
+    # Pure-Python state graph runner for lightweight serverless environments
+    class PurePythonWorkflowGraph:
+        def invoke(self, state: ComplaintState):
+            return supervisor_pipeline_node(state)
 
-    workflow.set_entry_point("supervisor_agent")
-    workflow.add_edge("supervisor_agent", END)
-
-    return workflow.compile()
+    return PurePythonWorkflowGraph()
 
 
 # Singleton compiled graph instance

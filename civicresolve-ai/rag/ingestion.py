@@ -6,8 +6,16 @@ generates embeddings, and builds the FAISS vector index with rich metadata.
 import os
 import re
 import json
-import faiss
-import numpy as np
+try:
+    import faiss
+except ImportError:
+    faiss = None
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
+
 from typing import List, Dict, Any
 from rag.embeddings import encode_texts
 from rag.source_registry import get_source_by_url, is_verified_official_source
@@ -17,6 +25,7 @@ SOURCES_DIR = os.path.join(BASE_DIR, "knowledge_base", "official_sources")
 INDEX_DIR = os.path.join(BASE_DIR, "rag", "faiss_store")
 INDEX_FILE = os.path.join(INDEX_DIR, "index.faiss")
 METADATA_FILE = os.path.join(INDEX_DIR, "metadata.json")
+VECTORS_FILE = os.path.join(INDEX_DIR, "vectors.json")
 
 
 def parse_source_document(filepath: str) -> Dict[str, Any]:
@@ -131,11 +140,25 @@ def build_faiss_index(force_rebuild: bool = False) -> bool:
     print(f"[RAG] Indexing {len(all_chunks)} chunks from official sources...")
     embeddings = encode_texts(chunk_texts)
 
-    dim = embeddings.shape[1]
-    index = faiss.IndexFlatIP(dim)  # Inner Product on normalized vectors = Cosine similarity
-    index.add(embeddings)
+    dim = embeddings.shape[1] if hasattr(embeddings, "shape") else len(embeddings[0])
+    
+    if faiss is not None:
+        try:
+            index = faiss.IndexFlatIP(dim)
+            index.add(embeddings)
+            faiss.write_index(index, INDEX_FILE)
+            print(f"[RAG] Successfully built FAISS index with {index.ntotal} vectors at {INDEX_FILE}")
+        except Exception as e:
+            print(f"[RAG] FAISS index creation notice: {e}")
 
-    faiss.write_index(index, INDEX_FILE)
+    # Always persist lightweight vectors.json for serverless and zero-dependency environments
+    try:
+        vecs_list = embeddings.tolist() if hasattr(embeddings, "tolist") else list(embeddings)
+        with open(VECTORS_FILE, "w", encoding="utf-8") as f:
+            json.dump(vecs_list, f)
+        print(f"[RAG] Successfully persisted lightweight vector store at {VECTORS_FILE}")
+    except Exception as e:
+        print(f"[RAG] Vector store persistence error: {e}")
 
     metadata_list = [c["metadata"] for c in all_chunks]
     # Store text content alongside metadata for immediate retrieval
@@ -145,7 +168,6 @@ def build_faiss_index(force_rebuild: bool = False) -> bool:
     with open(METADATA_FILE, "w", encoding="utf-8") as f:
         json.dump(metadata_list, f, indent=2, ensure_ascii=False)
 
-    print(f"[RAG] Successfully built FAISS index with {index.ntotal} vectors at {INDEX_FILE}")
     return True
 
 

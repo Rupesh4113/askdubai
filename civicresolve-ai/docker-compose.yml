@@ -16,6 +16,7 @@ services:
       - API_PORT=8000
       - DATABASE_URL=sqlite:///./civicresolve.db
       - SECRET_KEY=civicresolve-dubai-super-secret-key-2026
+      - DOCUMENT_SERVICE_URL=http://document-service:8001
       - OLLAMA_BASE_URL=http://ollama:11434
       - PRIMARY_MODEL=qwen2.5:7b-instruct
       - N8N_NEW_COMPLAINT_URL=https://askdubai.app.n8n.cloud/form/civicresolve
@@ -24,7 +25,21 @@ services:
       - ./data:/app/data
       - ./uploads:/app/uploads
     depends_on:
+      - document-service
       - ollama
+
+  document-service:
+    build:
+      context: .
+      dockerfile: document_service/Dockerfile
+    container_name: civicresolve-document-service
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - CIVICRESOLVE_ENV=production
+    volumes:
+      - ./uploads:/app/uploads
 
   ollama:
     image: ollama/ollama:latest

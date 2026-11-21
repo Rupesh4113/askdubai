@@ -1,34 +1,41 @@
 """
-CivicResolve AI - Vercel Serverless Function Handler
-Entrypoint for Vercel deployment of FastAPI backend and Multi-Agent API.
+CivicResolve AI - Vercel Serverless Function Handler (Repository Root)
+Routes requests to the CivicResolve AI multi-agent FastAPI app.
+Optimized for Vercel Serverless Lambda runtime (lightweight bundle, fast cold-start).
 """
 import os
 import sys
+import tempfile
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(CURRENT_DIR)
+REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
+# Check if running from inside api/ directory
+if os.path.basename(REPO_ROOT) == "api":
+    REPO_ROOT = os.path.dirname(REPO_ROOT)
 
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
+CIVICRESOLVE_DIR = os.path.join(REPO_ROOT, "civicresolve-ai")
 
-SUB_DIR = os.path.join(PROJECT_ROOT, "civicresolve-ai")
-if os.path.exists(SUB_DIR) and SUB_DIR not in sys.path:
-    sys.path.insert(0, SUB_DIR)
+if CIVICRESOLVE_DIR not in sys.path:
+    sys.path.insert(0, CIVICRESOLVE_DIR)
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
+
+# Set serverless environment flag
+os.environ.setdefault("VERCEL", "1")
+if "DATABASE_URL" not in os.environ:
+    if os.name == "nt":
+        db_path = os.path.join(tempfile.gettempdir(), "civicresolve.db").replace("\\", "/")
+        os.environ["DATABASE_URL"] = f"sqlite:///{db_path}"
+    else:
+        os.environ["DATABASE_URL"] = "sqlite:////tmp/civicresolve.db"
 
 from database.database import init_db
-from rag.ingestion import build_faiss_index
 from backend.main import app
 
-# Safe startup for serverless environment
+# Resilient startup for serverless environment
 try:
     init_db()
 except Exception as e:
     print(f"[Vercel Startup] Database init notice: {e}")
-
-try:
-    build_faiss_index()
-except Exception as e:
-    print(f"[Vercel Startup] FAISS index notice: {e}")
 
 # Export both app and handler for Vercel Serverless runtime
 handler = app

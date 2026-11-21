@@ -5,55 +5,99 @@ applies relevance ranking, and verifies citations against official government so
 """
 import os
 import json
-import faiss
-import numpy as np
+try:
+    import faiss
+except ImportError:
+    faiss = None
+
+try:
+    import numpy as np
+except ImportError:
+    np = None
+
 from typing import List, Dict, Any, Optional
 from rag.embeddings import encode_texts
-from rag.ingestion import INDEX_FILE, METADATA_FILE, build_faiss_index
+from rag.ingestion import INDEX_FILE, METADATA_FILE, VECTORS_FILE, build_faiss_index
 from rag.source_registry import is_verified_official_source, get_source_by_url
 
 _INDEX = None
 _METADATA = None
+_VECTORS = None
 
 
 def load_retriever():
-    """Loads FAISS index and metadata cache into memory."""
-    global _INDEX, _METADATA
-    if _INDEX is not None and _METADATA is not None:
+    """Loads FAISS index or pure-Python vector store and metadata cache into memory."""
+    global _INDEX, _METADATA, _VECTORS
+    if (_INDEX is not None or _VECTORS is not None) and _METADATA is not None:
         return _INDEX, _METADATA
 
-    if not os.path.exists(INDEX_FILE) or not os.path.exists(METADATA_FILE):
+    if not os.path.exists(METADATA_FILE):
         build_faiss_index()
 
-    if os.path.exists(INDEX_FILE) and os.path.exists(METADATA_FILE):
+    # Load metadata
+    if os.path.exists(METADATA_FILE):
         try:
-            _INDEX = faiss.read_index(INDEX_FILE)
             with open(METADATA_FILE, "r", encoding="utf-8") as f:
                 _METADATA = json.load(f)
+        except Exception as e:
+            print(f"[Retriever] Error loading metadata: {e}")
+
+    # Priority 1: FAISS C++ accelerator if installed
+    if faiss is not None and os.path.exists(INDEX_FILE):
+        try:
+            _INDEX = faiss.read_index(INDEX_FILE)
             return _INDEX, _METADATA
         except Exception as e:
-            print(f"[Retriever] Error reading FAISS index: {e}")
-            return None, None
-    return None, None
+            print(f"[Retriever] Notice: FAISS read error ({e}), falling back to vectorized search.")
+
+    # Priority 2: Pure-Python vector store (0MB extra dependencies)
+    if os.path.exists(VECTORS_FILE):
+        try:
+            with open(VECTORS_FILE, "r", encoding="utf-8") as f:
+                _VECTORS = json.load(f)
+        except Exception as e:
+            print(f"[Retriever] Error loading vectors.json: {e}")
+
+    return _INDEX, _METADATA
 
 
 def search_official_rights(query: str, top_k: int = 4, min_confidence: float = 0.25) -> List[Dict[str, Any]]:
     """
     Searches the official UAE / Dubai knowledge base.
     Returns ranked citations with verified official URLs, authority, procedure, and confidence score.
+    Supports both FAISS and zero-dependency vector cosine similarity.
     """
+    global _INDEX, _METADATA, _VECTORS
     index, metadata = load_retriever()
-    if index is None or metadata is None or len(metadata) == 0:
-        # Fallback to direct registry knowledge when index is not built
+    if metadata is None or len(metadata) == 0:
         return _fallback_source_search(query)
 
     query_vec = encode_texts([query])
-    scores, indices = index.search(query_vec, min(top_k * 2, len(metadata)))
+    query_list = query_vec[0].tolist() if hasattr(query_vec, "tolist") else list(query_vec[0])
+
+    scores = []
+    indices = []
+
+    if index is not None:
+        raw_scores, raw_indices = index.search(query_vec, min(top_k * 2, len(metadata)))
+        scores = list(raw_scores[0])
+        indices = list(raw_indices[0])
+    elif _VECTORS is not None and len(_VECTORS) == len(metadata):
+        # Pure-Python cosine similarity over normalized dense vectors (dot product)
+        scored_pairs = []
+        for i, vec in enumerate(_VECTORS):
+            dot = sum(a * b for a, b in zip(query_list, vec))
+            scored_pairs.append((dot, i))
+        scored_pairs.sort(key=lambda x: x[0], reverse=True)
+        scores = [p[0] for p in scored_pairs[:top_k * 2]]
+        indices = [p[1] for p in scored_pairs[:top_k * 2]]
+    else:
+        return _fallback_source_search(query)
 
     results = []
     seen_urls = set()
 
-    for score, idx in zip(scores[0], indices[0]):
+    for score, idx in zip(scores, indices):
         if idx < 0 or idx >= len(metadata):
             continue
         conf = float(score)

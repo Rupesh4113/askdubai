@@ -39,6 +39,7 @@
     "CIVICRESOLVE_ENV": "production",
     "DATABASE_URL": "sqlite:////tmp/civicresolve.db",
     "SECRET_KEY": "civicresolve-super-secure-production-secret-dubai-2026",
+    "DOCUMENT_SERVICE_URL": "",
     "N8N_NEW_COMPLAINT_URL": "https://askdubai.app.n8n.cloud/form/civicresolve",
     "N8N_UPDATE_CASE_URL": "https://askdubai.app.n8n.cloud/form/civicresolve-update"
   }
